@@ -1,9 +1,11 @@
 const express = require('express');
 let app = express();
 
-app.use(express.static(__dirname + '/../client/dist'));
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.post('/repos', function (req, res) {
+  console.log('post', req.body.username);
   // TODO - your code here!
   // This route should take the github username provided
   // and get the repo information from the github API, then
@@ -14,6 +16,8 @@ app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
 });
+
+app.use(express.static(__dirname + '/../client/dist'));
 
 let port = 1128;
 

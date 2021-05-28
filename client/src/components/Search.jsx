@@ -8,6 +8,7 @@ class Search extends React.Component {
     }
 
     this.onChange = this.onChange.bind(this);
+    this.search = this.search.bind(this);
   }
 
   onChange (e) {
