@@ -19,21 +19,23 @@ let save = (repo) => {
   // This function should save a repo or repos to
   // the MongoDB
 
-  console.log('save function');
+  if (!Repo.find({repo_id: repo.repo_id})) {
+    const newRepo = new Repo({
+      username: repo.username,
+      repo_name: repo.repo_name,
+      repo_id: repo.repo_id,
+      url: repo.url,
+      watchers: repo.watchers
+    })
 
-  const newRepo = new Repo({
-    username: repo.username,
-    repo_name: repo.repo_name,
-    repo_id: repo.repo_id,
-    url: repo.url,
-    watchers: repo.watchers
-  })
-
-  newRepo.save((err) => {
-    if (err) {
-      console.log(`Error saving new repo: ${err}`);
-    }
-  });
+    newRepo.save((err) => {
+      if (err) {
+        console.log(`Error saving new repo: ${err}`);
+      }
+    });
+  } else {
+    console.log(`Repo ${repo.repo_name} (${repo.repo_id}) already exists in database`);
+  }
 }
 
 module.exports.save = save;

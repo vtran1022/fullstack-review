@@ -1,5 +1,5 @@
 const { getReposByUsername } = require('../helpers/github.js');
-const { save } = require('../database/index.js');
+const { Repo, save } = require('../database/index.js');
 const express = require('express');
 let app = express();
 
@@ -13,10 +13,8 @@ app.post('/repos', function (req, res) {
   const user = req.body.username;
 
   getReposByUsername(user, (results, err) => {
-    // console.log('kareeen', results);
-    // console.log('errrrrr', err);
     if (err) {
-      res.status(400).send(err)
+      res.status(400).send(err);
     } else {
       let repoList = results.map((repoObj) => {
         const repo = {
@@ -30,9 +28,9 @@ app.post('/repos', function (req, res) {
         return repo;
       });
 
-      console.log('RepoList Length', repoList.length);
-
       repoList.forEach((repo) => save(repo));
+
+      res.status(200).send('Repos saved to database');
     }
   });
 });
