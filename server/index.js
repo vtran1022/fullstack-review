@@ -3,7 +3,7 @@ const { Repo, save } = require('../database/index.js');
 const express = require('express');
 let app = express();
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.post('/repos', function (req, res) {
   // TODO - your code here!
@@ -30,7 +30,7 @@ app.post('/repos', function (req, res) {
 
       repoList.forEach((repo) => save(repo));
 
-      res.status(200).send('Repos saved to database');
+      res.status(200).send('database updated');
     }
   });
 });

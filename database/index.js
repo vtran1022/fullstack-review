@@ -14,28 +14,29 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (repo) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
-  if (!Repo.find({repo_id: repo.repo_id})) {
-    const newRepo = new Repo({
-      username: repo.username,
-      repo_name: repo.repo_name,
-      repo_id: repo.repo_id,
-      url: repo.url,
-      watchers: repo.watchers
-    })
+  const doesRepoExist = Repo.find({repo_id: repo.repo_id});
 
-    newRepo.save((err) => {
-      if (err) {
-        console.log(`Error saving new repo: ${err}`);
-      } else {
-        console.log(`Success adding new repo: ${repo.repo_name} (${repo.repo_id})`);
-      }
-    });
-  } else {
-    console.log(`Repo ${repo.repo_name} (${repo.repo_id}) already exists in database`);
-  }
+  doesRepoExist.then((res) => {
+    if (res.length === 0) {
+      const newRepo = new Repo({
+        username: repo.username,
+        repo_name: repo.repo_name,
+        repo_id: repo.repo_id,
+        url: repo.url,
+        watchers: repo.watchers
+      });
+
+      newRepo.save((err) => {
+        if (err) {
+          console.log(`Error saving new repo: ${err}`);
+        } else {
+          console.log(`Success adding new repo: ${repo.repo_name} (${repo.repo_id})`);
+        }
+      });
+    } else {
+      console.log(`Repo ${repo.repo_name} (${repo.repo_id}) already exists in database`);
+    }
+  });
 }
 
 module.exports.save = save;
