@@ -39,4 +39,7 @@ let save = (repo) => {
   });
 }
 
-module.exports.save = save;
+module.exports = {
+  Repo,
+  save
+};
