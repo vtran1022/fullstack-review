@@ -14,7 +14,7 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (repo) => {
-  const doesRepoExist = Repo.find({repo_id: repo.repo_id});
+  const doesRepoExist = Repo.find({ repo_id: repo.repo_id });
 
   doesRepoExist.then((res) => {
     if (res.length === 0) {
