@@ -21,7 +21,7 @@ let getReposByUsername = (username, callback) => {
       callback(data.data);
     })
     .catch((err) => {
-      console.log(`Error getting github data: ${err}`);
+      callback(`Error getting github data: ${err}`);
     })
 }
 
