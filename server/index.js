@@ -1,12 +1,9 @@
+const { getReposByUsername } = require('../helpers/github.js');
+const { save } = require('../database/index.js');
 const express = require('express');
 let app = express();
 
-const { getReposByUsername } = require('../helpers/github.js');
-
-// var bodyParser = require('body-parser');
-// app.use(bodyParser.urlencoded({ extended: false }))
-
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 
 app.post('/repos', function (req, res) {
   // TODO - your code here!
@@ -21,7 +18,7 @@ app.post('/repos', function (req, res) {
     if (err) {
       res.status(400).send(err)
     } else {
-      let cheese = results.map((repoObj) => {
+      let repoList = results.map((repoObj) => {
         const repo = {
           username: repoObj.owner.login,
           repo_name: repoObj.name,
@@ -32,11 +29,12 @@ app.post('/repos', function (req, res) {
 
         return repo;
       });
-      console.log(cheese);
+
+      console.log('RepoList Length', repoList.length);
+
+      repoList.forEach((repo) => save(repo));
     }
-
   });
-
 });
 
 app.get('/repos', function (req, res) {

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost/fetcher', {useNewUrlParser: true, useUnifiedTopology: true});
 
 //define a schema
 let repoSchema = mongoose.Schema({
@@ -18,6 +18,8 @@ let save = (repo) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
+
+  console.log('save function');
 
   const newRepo = new Repo({
     username: repo.username,
