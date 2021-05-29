@@ -19,7 +19,6 @@ class App extends React.Component {
   fetchMessages () {
     axios.get('/repos')
       .then((data) => {
-        console.log(data.data);
         this.setState({ repos: data.data });
       })
       .catch((err) => {
@@ -28,6 +27,10 @@ class App extends React.Component {
   }
 
   componentDidMount () {
+    this.fetchMessages ();
+  }
+
+  componentDidUpdate() {
     this.fetchMessages ();
   }
 
