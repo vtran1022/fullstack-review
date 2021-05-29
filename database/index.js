@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost/myapp', {useNewUrlParser: true, useUnifiedTopology: true});
 
 //define a schema
 let repoSchema = mongoose.Schema({
@@ -29,6 +29,8 @@ let save = (repo) => {
     newRepo.save((err) => {
       if (err) {
         console.log(`Error saving new repo: ${err}`);
+      } else {
+        console.log(`Success adding new repo: ${repo.repo_name} (${repo.repo_id})`);
       }
     });
   } else {
