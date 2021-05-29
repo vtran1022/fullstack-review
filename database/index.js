@@ -3,7 +3,6 @@ mongoose.connect('mongodb://localhost/fetcher', {useNewUrlParser: true, useUnifi
 
 //define a schema
 let repoSchema = mongoose.Schema({
-  // _id: new ObjectID(),
   username: String, // the username we're searching for -- owner.login
   repo_name: String, // repo's name -- name
   repo_id: Number, // repo's id -- id
@@ -18,7 +17,6 @@ let save = (repo) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-
   if (!Repo.find({repo_id: repo.repo_id})) {
     const newRepo = new Repo({
       username: repo.username,
